@@ -40,5 +40,6 @@ void matrix_sum_axis(Matrix *result, Matrix *input, size_t axis);
 // Matrix fitting
 void matrix_padding(Matrix *result, Matrix *input, size_t pad_top, size_t pad_bottom, size_t pad_left, size_t pad_right, float pad_value);
 void matrix_reshape(Matrix *matrix, size_t rows, size_t cols);
+void matrix_flip(Matrix *result, Matrix *input);
 
 #endif // MATRIX_H

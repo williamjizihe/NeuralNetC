@@ -192,3 +192,10 @@ void matrix_reshape(Matrix *matrix, size_t rows, size_t cols) {
     matrix->rows = rows;
     matrix->cols = cols;
 }
+
+void matrix_flip(Matrix *result, Matrix *input) {
+    assert_same_size(result, input);
+    for (size_t i=0; i < input->rows * input->cols; i++) {
+        result->data[i] = input->data[(input->rows * input->cols) - i - 1];
+    }
+}

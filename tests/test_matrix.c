@@ -76,7 +76,14 @@ int main() {
     printf("Convolution result:\n");
     print_matrix(output);
 
+    // Test Matrix flip
+    Matrix *output_flip = create_matrix(4, 4);
+    matrix_flip(output_flip, output);
+    printf("Flipped result:\n");
+    print_matrix(output_flip);
+
     // Free memory
+    free_matrix(output_flip);
     free_matrix(kernel);
     free_matrix(output);
     free_matrix(A);

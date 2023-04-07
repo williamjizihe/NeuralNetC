@@ -39,6 +39,7 @@ LayerSpec *create_convolution_layer(LayerType layer_type, MatrixSize input_size,
     layer->prev = NULL;    
     layer->accumulated_gradient = NULL;
     layer->accumulated_moment = NULL;
+
     layer->size_t_params = (size_t *)malloc(4*sizeof(size_t));
     layer->size_t_params[0] = kernel_rows;
     layer->size_t_params[1] = kernel_cols;
@@ -127,5 +128,27 @@ void conv_forward(LayerSpec *current, const Matrix *input) {
 }
 
 void conv_backward(LayerSpec *current, const Matrix *output_gradient, Matrix *input_gradient) {
-    // TODO: Implement convolutional layer backward propagation
+    size_t padding = current->size_t_params[2];
+    size_t stride = current->size_t_params[3];
+    // Compute activation function's derivative: dA/dZ
+    Matrix *dAdZ = create_matrix(current->output->rows, current->output->cols);
+    current->activation_function->derivative(dAdZ, current->output, current->activation_function);
+
+    // Compute dL/dZ = dL/dA * dA/dZ (element-wise multiplication)
+    matrix_elementwise_multiply(dAdZ, output_gradient, dAdZ);
+
+    // Compute dL/dW = conv(input, dL/dZ)
+    matrix_convolve_gradient(current->weight_gradient, current->prev->output, dAdZ, stride);
+
+    // Compute dL/dB = sum(dL/dZ, axis=0)
+    matrix_sum_axis(current->bias_gradient, dAdZ, 0);
+
+    // Compute dL/dX = conv(dL/dZ, flipped_weights)
+    Matrix *flipped_weights = create_matrix(current->weights->rows, current->weights->cols);
+    matrix_flip(flipped_weights, current->weights);
+    matrix_convolve(input_gradient, dAdZ, flipped_weights, padding, stride);
+
+    // Free temporary matrices
+    free_matrix(dAdZ);
+    free_matrix(flipped_weights);
 }

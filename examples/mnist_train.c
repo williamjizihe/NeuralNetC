@@ -57,8 +57,8 @@ float valuate(Network* network, ndarray** images, int* labels, int num) {
 
 int main() {
     srand(time(NULL));  
-    int test_num = 1000;
-    int val_num = 100;
+    int test_num = 500;
+    int val_num = 50;
 
     ndarray** test_images = (ndarray**)(malloc(test_num * sizeof(ndarray*)));
     int* test_labels = (int*)(malloc(test_num * sizeof(int)));
@@ -80,24 +80,24 @@ int main() {
             printf("\n");
         }
         printf("label : %d\n", test_labels[n]);
-
-        // for (int i = 0; i < IMAGE_SIZE; i++) {
-        //     for (int j = 0; j < IMAGE_SIZE; j++) {
-        //         printf("%d ", (int)val_images[n]->data[i * IMAGE_SIZE + j]);
-        //     }
-        //     printf("\n");
-        // }
-        // printf("label : %d\n", val_labels[n]);
     }
     
     // Initialize the network
-    Network* network = create_network(0.1);
+    Network* network = create_network(0.01);
     ndarray* target = nda_zero(2, (size_t[]){10, 1});
     ndarray* output = nda_zero(2, (size_t[]){10, 1});
 
-    for(int epoch = 1; epoch <= 20; epoch++) {
+    for(int epoch = 1; epoch <= 300; epoch++) {
         float loss = 0;
         int correct = 0;
+
+        int rand_index = rand() % test_num;
+        network_forward(network, test_images[rand_index], output);
+        for (int j = 0; j < 10; j++) {
+            printf("%f ", output->data[j]);
+        }
+
+        printf("target: %d\n", test_labels[rand_index]);
         for(int i = 0; i < test_num; i++) {
             // Forward
             network_forward(network, test_images[i], output);
@@ -123,28 +123,13 @@ int main() {
             //     printf("\n");
             // }
         }
-        int rand_index = rand() % test_num;
-        for (int j = 0; j < 10; j++) {
-            printf("%f ", output->data[j]);
-        }
-        printf("target: %d\n", test_labels[rand_index]);
 
         // Print the loss
         printf("Epoch %d: loss = %f, train acc = %f, val acc = %f\n", 
                 epoch, loss / test_num, (float)correct / test_num, valuate(network, val_images, val_labels, val_num));
         // Update learning rate
-        network->learning_rate  = MAX(0.0001, network->learning_rate * 0.9);
+        // network->learning_rate  = MAX(0.0001, network->learning_rate * 0.9);
     }
-    ndarray* rand_input = nda_zero(2, (size_t[]){IMAGE_SIZE * IMAGE_SIZE, 1});
-    for (int i = 0; i < IMAGE_SIZE * IMAGE_SIZE; i++) {
-        rand_input->data[i] = (float)(rand() % 256);
-    }
-    network_forward(network, rand_input, output);
-    printf("Output:\n");
-    for (int j = 0; j < 10; j++) {
-        printf("%f ", output->data[j]);
-    }
-    printf("\n");
     // printf("Final weight:\n");
     // nda_print_mat(network->dense1->weights);
     // printf("Final bias:\n");

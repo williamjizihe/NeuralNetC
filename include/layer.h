@@ -27,10 +27,12 @@ typedef struct convlayer
     ActivationType activation;
     size_t kernel_num;
     size_t kernel_size;
+    ndarray *input;
     ndarray *weights;
     ndarray *bias;
     ndarray *weights_grad;
     ndarray *bias_grad;
+    ndarray *linear_output;
     void (*forward)(struct convlayer *self, ndarray *input, ndarray *output);
     void (*backward)(struct denselayer *self, ndarray *input_grad, ndarray *output_grad);
 } ConvLayer;

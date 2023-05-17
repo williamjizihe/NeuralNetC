@@ -146,9 +146,19 @@ size_t nda_argmax(ndarray *a){
 
 void nda_normalize(ndarray *a, ndarray *out){
     CHECK_COMPATIBLE(a, out);
-    float sum = nda_sum(a);
+    float sum = nda_sum(a) + 1e-7;
+    // Check if sum is zero.
+    if (sum == 0) {
+        fprintf(stderr, "sum of ndarray is zero\n");
+        exit(1);
+    }
+
     for (size_t i = 0; i < a->size; i++) {
         out->data[i] = a->data[i] / sum;
+        if (isnan(out->data[i])) {
+            fprintf(stderr, "nan in ndarray\n");
+            exit(1);
+        }
     }
 }
 
@@ -319,6 +329,10 @@ void nda_softmax(ndarray *a, ndarray *out) {
 
     for (size_t i = 0; i < a->size; i++) {
         out->data[i] = exp(a->data[i] - max);
+        if (isnan(out->data[i])) {
+            fprintf(stderr, "nan in ndarray softmax, a->data[%zu] = %f, max = %f\n", i, a->data[i], max);
+            exit(1);
+        }
     }
 
     nda_normalize(out, out);
@@ -362,7 +376,13 @@ float cross_entropy(ndarray *pr, ndarray *tr){
     CHECK_COMPATIBLE(pr, tr);
     float sum = 0;
     for (size_t i = 0; i < pr->size; i++) {
-        sum -= tr->data[i] * log(pr->data[i]);
+        if (pr->data[i] <= 1e-8) {
+            sum -= tr->data[i] * log(1e-8);
+        } else if (pr->data[i] >= 1 - 1e-8) {
+            sum -= tr->data[i] * log(1 - 1e-8);
+        } else {
+            sum -= tr->data[i] * log(pr->data[i]);
+        }
     }
     return sum / pr->size;
 }

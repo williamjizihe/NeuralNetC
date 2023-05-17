@@ -1,6 +1,8 @@
 #include "network.h"
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 Network *create_network(float learning_rate){
     Network *network = malloc(sizeof(Network));
@@ -26,9 +28,25 @@ void network_forward(Network *self, ndarray *input, ndarray *output){
     // input : (400, 1)
     // output: (10, 1)
     self->dense1->forward(self->dense1, input, self->d1_output);
+    for (size_t i = 0; i < 10; i++){
+        if (isnan(self->d1_output->data[i])){
+            fprintf(stderr, "NaN in d1_output\n"); exit(1);
+        }
+    }
     self->dense2->forward(self->dense2, self->d1_output, self->d2_output);
+    for (size_t i = 0; i < 10; i++){
+        if (isnan(self->d2_output->data[i])){
+            fprintf(stderr, "NaN in d2_output\n"); exit(1);
+        }
+    }
     self->dense3->forward(self->dense3, self->d2_output, self->d3_output);
     nda_copy(self->d3_output, output);
+    // Check if there is NaN in output
+    for (size_t i = 0; i < 10; i++){
+        if (isnan(output->data[i])){
+            fprintf(stderr, "NaN in output\n"); exit(1);
+        }
+    }
 }
 
 void network_backward(Network *self, ndarray *target){

@@ -1,45 +1,45 @@
 #ifndef LAYER_H
 #define LAYER_H
 
-#include <stddef.h>
-#include "matrix.h"
-#include "activation.h"
+#include "ndarray.h"
 
 typedef enum {
-    DENSE,
-    CONVOLUTION,
-    MAX_POOLING
-    // Add other layer types as needed
-} LayerType;
+    NONE,
+    RELU,
+    SOFTMAX,
+} ActivationType;
 
-typedef struct Layer {
-    LayerType type;
-    size_t epoch;
-    MatrixSize input_size;
-    MatrixSize output_size;
-    Matrix *weights;
-    Matrix *biases;
-    Matrix *output;
-    Matrix *weight_gradient;
-    Matrix *bias_gradient;
-    Matrix *accumulated_gradient;
-    Matrix *accumulated_moment;
-    ActivationFunction *activation_function;
-    OptimizerSpec *optimizer;
-    size_t *size_t_params;
-    void (*forward)(LayerSpec *current, const Matrix *input);
-    void (*backward)(LayerSpec *current, const Matrix *output_gradient, Matrix *input_gradient);
-    LayerSpec *next;
-    LayerSpec *prev;
-} LayerSpec;
+typedef struct denselayer
+{
+    ActivationType activation;
+    ndarray *input;
+    ndarray *weights;
+    ndarray *bias;
+    ndarray *weights_grad;
+    ndarray *bias_grad;
+    ndarray *linear_output;
+    void (*forward)(struct denselayer *self, ndarray *input, ndarray *output);
+    void (*backward)(struct denselayer *self, ndarray *input_grad, ndarray *output_grad); 
+} DenseLayer;
 
-// Function prototypes
-LayerSpec *create_dense_layer(LayerType layer_type, MatrixSize input_size, MatrixSize output_size, ActivationFunctionType activation_function_type);
+typedef struct convlayer
+{
+    ActivationType activation;
+    size_t kernel_num;
+    size_t kernel_size;
+    ndarray *weights;
+    ndarray *bias;
+    ndarray *weights_grad;
+    ndarray *bias_grad;
+    void (*forward)(struct convlayer *self, ndarray *input, ndarray *output);
+    void (*backward)(struct denselayer *self, ndarray *input_grad, ndarray *output_grad);
+} ConvLayer;
 
-LayerSpec *create_convolution_layer(LayerType layer_type, MatrixSize input_size, MatrixSize output_size, ActivationFunctionType activation_function_type, size_t kernel_rows, size_t kernel_cols, size_t padding, size_t stride);
+// function prototypes for creating layers
+DenseLayer *create_dense_layer(ActivationType activation);
+ConvLayer *create_conv_layer(size_t kernel_num, size_t kernel_size, ActivationType activation);
 
-LayerSpec *create_max_pooling_layer(LayerType layer_type, MatrixSize input_size, MatrixSize output_size, ActivationFunctionType activation_function_type, size_t kernel_rows, size_t kernel_cols, size_t padding, size_t stride);
-
-void free_layer(LayerSpec *layer);
+void free_dense_layer(DenseLayer *layer);
+void free_conv_layer(ConvLayer *layer);
 
 #endif // LAYER_H

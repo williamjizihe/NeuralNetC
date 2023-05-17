@@ -1,20 +1,20 @@
 CC 		= gcc
-INC 	= include/
+INC 	= ../include/
 CFLAGS	= -Wall -Wextra -Werror -I $(INC) -g
-SRC 	= src/
-EXEC	= examples/main.x
+SRC 	= ../src/
+EXEC	= mnist_train.x
 
 all		: $(EXEC)
 
-examples/main.x : $(SRC)main.o $(SRC)*.o
-	$(CC) $(CFLAGS) $^ -o $@
-
+mnist_train.x : mnist_train.o $(SRC)network.o $(SRC)ndarray.o $(SRC)layer.o $(SRC)misc.o
+	$(CC) $(CFLAGS) $^ -o $@ -lm
+	
 $(SRC)%.o	: $(SRC)%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@ -lm
 
 .PHONY : clean realclean
 clean:
-	rm -rf $(SRC)*.o
+	rm -rf $(SRC)*.o *.o
 
 realclean: clean
-	rm -rf $(SRC)*.x
+	rm -rf *.x

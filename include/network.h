@@ -28,4 +28,7 @@ void network_backward(Network *self, ndarray *target);
 void network_update(Network *self);
 void free_network(Network *self);
 
+void copy_network(Network *dst, Network *src);
+void save_network(Network *network, const char *filename);
+void load_network(Network *network, const char *filename);
 #endif // NETWORK_H

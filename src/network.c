@@ -10,14 +10,14 @@ Network *create_network(float learning_rate){
     network->dense2 = create_dense_layer(RELU);
     network->dense3 = create_dense_layer(SOFTMAX);
 
-    network->d1_output = nda_zero(2, (size_t[]){256, 1});
-    network->d1_input_grad = nda_zero(2, (size_t[]){256, 1});
+    network->d1_output = nda_zero(2, (int[]){256, 1});
+    network->d1_input_grad = nda_zero(2, (int[]){256, 1});
 
-    network->d2_output = nda_zero(2, (size_t[]){128, 1});
-    network->d2_input_grad = nda_zero(2, (size_t[]){128, 1});
+    network->d2_output = nda_zero(2, (int[]){128, 1});
+    network->d2_input_grad = nda_zero(2, (int[]){128, 1});
 
-    network->d3_output = nda_zero(2, (size_t[]){10, 1});
-    network->d3_input_grad = nda_zero(2, (size_t[]){10, 1});
+    network->d3_output = nda_zero(2, (int[]){10, 1});
+    network->d3_input_grad = nda_zero(2, (int[]){10, 1});
 
     network->loss = 0;
     network->learning_rate = learning_rate;
@@ -28,25 +28,9 @@ void network_forward(Network *self, ndarray *input, ndarray *output){
     // input : (400, 1)
     // output: (10, 1)
     self->dense1->forward(self->dense1, input, self->d1_output);
-    for (size_t i = 0; i < 10; i++){
-        if (isnan(self->d1_output->data[i])){
-            fprintf(stderr, "NaN in d1_output\n"); exit(1);
-        }
-    }
     self->dense2->forward(self->dense2, self->d1_output, self->d2_output);
-    for (size_t i = 0; i < 10; i++){
-        if (isnan(self->d2_output->data[i])){
-            fprintf(stderr, "NaN in d2_output\n"); exit(1);
-        }
-    }
     self->dense3->forward(self->dense3, self->d2_output, self->d3_output);
     nda_copy(self->d3_output, output);
-    // Check if there is NaN in output
-    for (size_t i = 0; i < 10; i++){
-        if (isnan(output->data[i])){
-            fprintf(stderr, "NaN in output\n"); exit(1);
-        }
-    }
 }
 
 void network_backward(Network *self, ndarray *target){
@@ -81,4 +65,41 @@ void free_network(Network *self){
     nda_free(self->d3_output);
     nda_free(self->d3_input_grad);
     free(self);
+}
+
+void save_network(Network *network, const char *filename) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    // Save parameters for each layer
+    save_dense_layer(network->dense1, file);
+    save_dense_layer(network->dense2, file);
+    save_dense_layer(network->dense3, file);
+
+    fclose(file);
+}
+
+void load_network(Network *network, const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    // Load parameters for each layer
+    load_dense_layer(network->dense1, file);
+    load_dense_layer(network->dense2, file);
+    load_dense_layer(network->dense3, file);
+
+    printf("Loaded network from %s\n", filename);
+    fclose(file);
+}
+
+void copy_network(Network *dst, Network *src){
+    copy_dense_layer(dst->dense1, src->dense1);
+    copy_dense_layer(dst->dense2, src->dense2);
+    copy_dense_layer(dst->dense3, src->dense3);
 }

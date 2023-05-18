@@ -2,11 +2,14 @@ CC 		= gcc
 INC 	= ../include/
 CFLAGS	= -Wall -Wextra -Werror -I $(INC) -g
 SRC 	= ../src/
-EXEC	= mnist_train.x
+EXEC	= mnist_train.x mnist_test.x
 
 all		: $(EXEC)
 
 mnist_train.x : mnist_train.o $(SRC)network.o $(SRC)ndarray.o $(SRC)layer.o $(SRC)misc.o
+	$(CC) $(CFLAGS) $^ -o $@ -lm
+
+mnist_test.x : mnist_test.o $(SRC)network.o $(SRC)ndarray.o $(SRC)layer.o $(SRC)misc.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	
 $(SRC)%.o	: $(SRC)%.c

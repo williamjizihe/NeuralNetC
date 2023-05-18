@@ -4,20 +4,23 @@
 #include <stddef.h>
 
 typedef struct {
-    size_t ndim;
-    size_t size;
-    size_t *shape;
-    size_t *strides;
+    int ndim;
+    int size;
+    int *shape;
+    int *strides;
     float *data;
 } ndarray;
 
 // Create a new ndarray with the given shape.
-ndarray *nda_zero(size_t ndim, size_t *shape);
+ndarray *nda_zero(int ndim, int *shape);
 
 void nda_init_data(ndarray *arr, float *data);
 void nda_init_rand(ndarray *arr);
-void nda_print_mat(ndarray *arr);
 void initialize_weights(ndarray *arr);
+
+// Print the ndarray.
+void nda_print_mat(ndarray *arr);
+void nda_print_shape(ndarray *arr);
 
 // Free the memory allocated for the ndarray.
 void nda_free(ndarray *arr);
@@ -33,18 +36,20 @@ void nda_mul_scalar(ndarray *a, float b, ndarray *out);
 void nda_div_scalar(ndarray *a, float b, ndarray *out);
 float nda_sum(ndarray *a);
 float nda_max(ndarray *a);
-size_t nda_argmax(ndarray *a);
+int nda_argmax(ndarray *a);
 void nda_normalize(ndarray *a, ndarray *out);
 
 // Ndarray operations.
-void nda_reshape(ndarray *a, size_t ndim, size_t *shape);
+void nda_reshape(ndarray *a, int ndim, int *shape);
 ndarray* nda_deepcopy(ndarray *a);
 void nda_copy(ndarray *a, ndarray *out);
-void nda_stack(ndarray *a[], size_t n, ndarray *out);
+void nda_stack(ndarray *a[], int n, ndarray *out);
 
 // Matrix operations.
 void nda_dot(ndarray *a, ndarray *b, ndarray *out);
 void nda_T(ndarray *a);
+void nda_flip(ndarray *a);
+void nda_pad(ndarray *a, int pad, ndarray *out);
 
 // Convolution operations.
 void nda_conv2d(ndarray *a, ndarray *b, ndarray *out);

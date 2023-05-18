@@ -1,0 +1,52 @@
+Epoch 1: loss = 0.231371, train acc = 10.971429, val acc = 10.000000, learning rate = 0.003000 # Best network updated
+Epoch 2: loss = 0.228412, train acc = 12.514286, val acc = 12.666666, learning rate = 0.003000 # Best network updated
+Epoch 3: loss = 0.219346, train acc = 16.514286, val acc = 17.733334, learning rate = 0.003000 # Best network updated
+Epoch 4: loss = 0.196269, train acc = 20.257143, val acc = 20.266666, learning rate = 0.003000 # Best network updated
+Epoch 5: loss = 0.188725, train acc = 22.971430, val acc = 21.866667, learning rate = 0.002970 # Best network updated
+Epoch 6: loss = 0.177123, train acc = 30.485714, val acc = 42.133335, learning rate = 0.002940 # Best network updated
+Epoch 7: loss = 0.155276, train acc = 41.800003, val acc = 45.333336, learning rate = 0.002911 # Best network updated
+Epoch 8: loss = 0.136921, train acc = 48.657143, val acc = 45.733334, learning rate = 0.002882 # Best network updated
+Epoch 9: loss = 0.125855, train acc = 52.600002, val acc = 53.466667, learning rate = 0.002853 # Best network updated
+Epoch 10: loss = 0.110362, train acc = 60.171432, val acc = 62.533333, learning rate = 0.002824 # Best network updated
+Epoch 11: loss = 0.091735, train acc = 69.028572, val acc = 72.133331, learning rate = 0.002796 # Best network updated
+Epoch 12: loss = 0.079423, train acc = 74.142853, val acc = 75.199997, learning rate = 0.002768 # Best network updated
+Epoch 13: loss = 0.072586, train acc = 76.714287, val acc = 77.200005, learning rate = 0.002741 # Best network updated
+Epoch 14: loss = 0.068230, train acc = 77.828575, val acc = 76.400002, learning rate = 0.002713
+Epoch 15: loss = 0.064667, train acc = 79.428574, val acc = 76.933334, learning rate = 0.002686
+Epoch 16: loss = 0.061109, train acc = 80.885712, val acc = 77.466667, learning rate = 0.002659 # Best network updated
+Epoch 17: loss = 0.056571, train acc = 82.142860, val acc = 80.000000, learning rate = 0.002633 # Best network updated
+Epoch 18: loss = 0.051551, train acc = 84.000000, val acc = 82.133331, learning rate = 0.002606 # Best network updated
+Epoch 19: loss = 0.046809, train acc = 85.028572, val acc = 81.866661, learning rate = 0.002580
+Epoch 20: loss = 0.043305, train acc = 86.028572, val acc = 82.266663, learning rate = 0.002554 # Best network updated
+Epoch 21: loss = 0.040995, train acc = 86.799995, val acc = 83.600006, learning rate = 0.002529 # Best network updated
+Epoch 22: loss = 0.039808, train acc = 87.114288, val acc = 84.400002, learning rate = 0.002504 # Best network updated
+Epoch 23: loss = 0.039202, train acc = 87.400002, val acc = 84.533333, learning rate = 0.002479 # Best network updated
+Epoch 24: loss = 0.038188, train acc = 87.942856, val acc = 85.199997, learning rate = 0.002454 # Best network updated
+Epoch 25: loss = 0.036831, train acc = 88.685715, val acc = 86.400002, learning rate = 0.002429 # Best network updated
+Epoch 26: loss = 0.035469, train acc = 88.828568, val acc = 86.533333, learning rate = 0.002405 # Best network updated
+Epoch 27: loss = 0.034282, train acc = 89.428574, val acc = 87.199997, learning rate = 0.002381 # Best network updated
+Epoch 28: loss = 0.033113, train acc = 89.685715, val acc = 87.333336, learning rate = 0.002357 # Best network updated
+Epoch 29: loss = 0.031618, train acc = 90.028572, val acc = 87.066666, learning rate = 0.002333
+Epoch 30: loss = 0.030001, train acc = 90.714287, val acc = 86.799995, learning rate = 0.002310
+Epoch 31: loss = 0.028589, train acc = 91.057144, val acc = 87.333336, learning rate = 0.002287
+Epoch 32: loss = 0.027448, train acc = 91.542854, val acc = 86.933334, learning rate = 0.002264
+Epoch 33: loss = 0.026401, train acc = 91.685715, val acc = 86.933334, learning rate = 0.002242
+Epoch 34: loss = 0.025375, train acc = 92.314285, val acc = 86.666664, learning rate = 0.002219
+Epoch 35: loss = 0.024400, train acc = 92.657143, val acc = 86.799995, learning rate = 0.002197
+Epoch 36: loss = 0.023476, train acc = 93.000000, val acc = 87.199997, learning rate = 0.002175
+Epoch 37: loss = 0.022610, train acc = 93.314285, val acc = 87.333336, learning rate = 0.002153
+Epoch 38: loss = 0.021806, train acc = 93.457146, val acc = 87.866661, learning rate = 0.002132 # Best network updated
+Epoch 39: loss = 0.021057, train acc = 93.828568, val acc = 88.133331, learning rate = 0.002110 # Best network updated
+Epoch 40: loss = 0.020347, train acc = 93.885712, val acc = 88.400002, learning rate = 0.002089 # Best network updated
+Epoch 41: loss = 0.019670, train acc = 94.114288, val acc = 88.266663, learning rate = 0.002068
+Epoch 42: loss = 0.019053, train acc = 94.228569, val acc = 88.000000, learning rate = 0.002048
+Epoch 43: loss = 0.018446, train acc = 94.428566, val acc = 87.466667, learning rate = 0.002027
+Epoch 44: loss = 0.017866, train acc = 94.542854, val acc = 87.466667, learning rate = 0.002007
+Epoch 45: loss = 0.017308, train acc = 94.685715, val acc = 87.733337, learning rate = 0.001987
+Epoch 46: loss = 0.016719, train acc = 95.028572, val acc = 87.733337, learning rate = 0.001967
+Epoch 47: loss = 0.016160, train acc = 94.942856, val acc = 87.599998, learning rate = 0.001947
+Epoch 48: loss = 0.015638, train acc = 95.114288, val acc = 87.866661, learning rate = 0.001928
+Epoch 49: loss = 0.015123, train acc = 95.285713, val acc = 87.733337, learning rate = 0.001909
+Epoch 50: loss = 0.014656, train acc = 95.485718, val acc = 87.466667, learning rate = 0.001889
+
+Early stop

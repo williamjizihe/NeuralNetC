@@ -61,8 +61,9 @@ int main() {
 
     float best_val_acc = 0.0;
     Network* best_network = create_network(0.003);
+    int early_stop = 0;
 
-    for(int epoch = 1; epoch <= 100; epoch++) {
+    for(int epoch = 1; epoch <= 70; epoch++) {
         float loss = 0;
         int correct = 0;
 
@@ -83,18 +84,32 @@ int main() {
         float val_acc = valuate(network, val_images, val_labels, val_num);
         float train_acc = (float)correct / train_num;
         // Print the loss
-        printf("Epoch %d: loss = %f, train acc = %.2f%%, val acc = %.2f%%, learning rate = %f\n", 
+        printf("Epoch %d: loss = %f, train acc = %.2f%%, val acc = %.2f%%, learning rate = %f", 
                 epoch, loss / train_num, train_acc * 100, val_acc * 100, network->learning_rate);
-        fprintf(file, "Epoch %d: loss = %f, train acc = %f, val acc = %f, learning rate = %f\n", 
+        fprintf(file, "Epoch %d: loss = %f, train acc = %f, val acc = %f, learning rate = %f", 
                 epoch, loss / train_num, train_acc * 100, val_acc * 100, network->learning_rate);
         // Update learning rate
         if (train_acc > 0.2){
-            network->learning_rate  = MAX(0.0003, network->learning_rate * 0.99);
+            network->learning_rate  = MAX(0.0005, network->learning_rate * 0.99);
         }
         // Save the best network
         if (val_acc > best_val_acc) {
+            early_stop = 0;
             best_val_acc = val_acc;
-            copy_network(network, best_network);
+            copy_network(best_network, network);
+            printf(" # Best network updated\n");
+            fprintf(file, " # Best network updated\n");
+        }
+        else {
+            early_stop++;
+            printf("\n");
+            fprintf(file, "\n");
+        }
+        // Early stop
+        if (early_stop >= 10) {
+            printf("\nEarly stop\n");
+            fprintf(file, "\nEarly stop\n");
+            break;
         }
     }
 

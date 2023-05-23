@@ -16,7 +16,6 @@ Support activation functions:
 
 - Sigmoid
 - ReLU
-- NONE
 - Softmax
 
 Support loss functions:

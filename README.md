@@ -14,7 +14,6 @@ Support layer types:
 
 Support activation functions:
 
-- Sigmoid
 - ReLU
 - Softmax
 

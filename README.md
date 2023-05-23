@@ -1,6 +1,6 @@
 # Neural Networks written in C
 
-This work is related to the IN104 project, specifically focusing on the implementation and testing of the neural network component.
+This work is related to the IN104 project at ENSTA Paris, specifically focusing on the implementation and testing of the neural network component.
 
 ## Usage
 

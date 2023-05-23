@@ -1,5 +1,7 @@
 # Neural Networks written in C
 
+This work is related to the IN104 project, specifically focusing on the implementation and testing of the neural network component.
+
 ## Usage
 
 Modify the `network.h` and `network.c` file to change the network architecture. It relies on the `ndarray` and `layer` files.
@@ -39,8 +41,6 @@ The log file is saved in the `./logs` directory as `log_<timestamp>.txt`.
 To test the network, run the following command:
 
 ```bash
-cd ./examples
-make
 ./mnist_test.x <path_to_model>
 ```
 

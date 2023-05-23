@@ -297,5 +297,13 @@ void load_conv_layer(ConvLayer *layer, FILE *file) {
 void copy_dense_layer(DenseLayer *dst, DenseLayer *src){
     dst->weights = nda_deepcopy(src->weights);
     dst->bias = nda_deepcopy(src->bias);
-    dst->linear_output = nda_zero(2, src->linear_output->shape);
+    dst->linear_output = nda_zero(2, (int[]){src->linear_output->shape[0], src->linear_output->shape[1]});
+}
+
+void copy_conv_layer(ConvLayer *dst, ConvLayer *src){
+    dst->kernel_num = src->kernel_num;
+    dst->kernel_size = src->kernel_size;
+    dst->weights = nda_deepcopy(src->weights);
+    dst->bias = nda_deepcopy(src->bias);
+    dst->linear_output = nda_zero(3, (int[]){src->linear_output->shape[0], src->linear_output->shape[1], src->linear_output->shape[2]});
 }

@@ -18,7 +18,7 @@ void data_shuffle(ndarray *data[], int label[], int size){
     }
 }
 
-void read_data(const char* filename, ndarray** images, int* labels, int num, int image_size) {
+void read_data(const char* filename, ndarray** images, int* labels, int num, int image_size, int ndim, int* shape) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("Cannot open file %s\n", filename);
@@ -32,7 +32,7 @@ void read_data(const char* filename, ndarray** images, int* labels, int num, int
         fscanf(file, "%s %d", image_file, &label);
 
         labels[i] = label;
-        images[i] = nda_zero(2, (int[]){image_size * image_size, 1});
+        images[i] = nda_zero(ndim, shape);
 
         // Open the image file and read the data
         FILE* image_file_handle = fopen(image_file, "r");

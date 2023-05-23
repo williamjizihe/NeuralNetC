@@ -1,0 +1,13 @@
+Epoch 1: loss = 0.080174, train acc = 49.428570, val acc = 50.000000, learning rate = 0.003000 # Best network updated
+Epoch 2: loss = 0.073612, train acc = 50.285713, val acc = 50.000000, learning rate = 0.002970
+Epoch 3: loss = 0.072659, train acc = 50.571430, val acc = 50.000000, learning rate = 0.002940
+Epoch 4: loss = 0.072167, train acc = 51.142860, val acc = 50.000000, learning rate = 0.002911
+Epoch 5: loss = 0.071850, train acc = 50.428570, val acc = 50.000000, learning rate = 0.002882
+Epoch 6: loss = 0.071621, train acc = 50.857143, val acc = 50.000000, learning rate = 0.002853
+Epoch 7: loss = 0.071444, train acc = 50.714283, val acc = 50.000000, learning rate = 0.002824
+Epoch 8: loss = 0.071299, train acc = 50.428570, val acc = 50.000000, learning rate = 0.002796
+Epoch 9: loss = 0.071175, train acc = 50.000000, val acc = 50.000000, learning rate = 0.002768
+Epoch 10: loss = 0.071062, train acc = 50.285713, val acc = 50.000000, learning rate = 0.002741
+Epoch 11: loss = 0.070955, train acc = 50.857143, val acc = 50.000000, learning rate = 0.002713
+
+Early stop

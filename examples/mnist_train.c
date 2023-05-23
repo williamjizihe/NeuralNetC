@@ -49,8 +49,8 @@ int main() {
     ndarray** val_images = (ndarray**)(malloc(val_num * sizeof(ndarray*)));
     int* val_labels = (int*)(malloc(val_num * sizeof(int)));
 
-    read_data("../datasets/mnist_20x20/train_labels.txt", train_images, train_labels, train_num, IMAGE_SIZE);
-    read_data("../datasets/mnist_20x20/val_labels.txt", val_images, val_labels, val_num, IMAGE_SIZE);
+    read_data("../datasets/mnist_20x20/train_labels.txt", train_images, train_labels, train_num, IMAGE_SIZE, 2, (int[]){IMAGE_SIZE*IMAGE_SIZE, 1});
+    read_data("../datasets/mnist_20x20/val_labels.txt", val_images, val_labels, val_num, IMAGE_SIZE, 2, (int[]){IMAGE_SIZE*IMAGE_SIZE, 1});
 
     data_shuffle(train_images, train_labels, train_num);
 

@@ -32,7 +32,7 @@ int main(int argc, char* argv[]){
     int test_num = 750;
     ndarray** test_images = (ndarray**)(malloc(test_num * sizeof(ndarray*)));
     int* test_labels = (int*)(malloc(test_num * sizeof(int)));
-    read_data("../datasets/mnist_20x20/test_labels.txt", test_images, test_labels, test_num, IMAGE_SIZE);
+    read_data("../datasets/mnist_20x20/test_labels.txt", test_images, test_labels, test_num, IMAGE_SIZE, 2, (int[]){IMAGE_SIZE*IMAGE_SIZE, 1});
     printf("Test data loaded.\n");
 
     float test_acc = valuate(network, test_images, test_labels, test_num);

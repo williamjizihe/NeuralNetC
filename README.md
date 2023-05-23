@@ -36,7 +36,7 @@ make
 ./mnist_train.x
 ```
 
-The log file is saved in the `./logs` directory as `log_<timestamp>.txt`.
+The log file is saved in the `../logs` directory as `log_<timestamp>.txt`.
 
 To test the network, run the following command:
 
